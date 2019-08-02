@@ -1,12 +1,11 @@
 class Image
   
   def initialize (image)
-    #stores variable @image and allows it accessible past class-end
     @image = image 
   end
 
 
-  def transform #turn 0s to 1s
+  def transform
     new_image = [] 
     @image.each_with_index do |row, row_id|
       row.each_with_index do |pixel, col_id|
