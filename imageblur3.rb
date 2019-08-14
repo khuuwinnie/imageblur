@@ -1,50 +1,38 @@
 class Image
+  attr_accessor :image
   
   def initialize (image)
     @image = image 
   end
-
-
-  def transform
-    new_image = [] 
-    @image.each_with_index do |row, row_id|
-      row.each_with_index do |pixel, col_id|
-        if pixel == 1
-          new_image << [row_id, col_id]
+  
+   
+  def transform(number)
+    n = number.to_i
+    
+    n.times do
+        b = Marshal.load ( Marshal.dump(@image) ) #creates new unique copy each time
+        @image.each_with_index do |row, row_id|
+            row.each_with_index do |pixel, col_id|
+        if b[row_id][col_id] == 1
+            @image[row_id + 1][col_id] = 1 unless [row_id] == @image.length - 1 #1 row down
+            @image[row_id - 1][col_id] = 1 unless [row_id] == 0 #1 row up
+            @image[row_id][col_id + 1] = 1 unless [col_id] == @image[row_id].length - 1 #1 column right
+            @image[row_id][col_id - 1] = 1 unless [col_id] == 0 #1 column left
         end
-      end
-    end
-    new_image
-  end
-
-
-  def blur(distance)
-    new_image = transform
-      @image.each_with_index do |row, row_id|
-        row.each_with_index do |pixel, col_id|
-          new_image.each do |found_row_id, found_col_id|
-
-            if manhattan_distance(row_id, col_id, found_row_id, found_col_id) <= distance
-              @image[row_id][col_id] = 1
-            end
-          end
         end
-      end
-  end
+        end
+     end
 
-  def manhattan_distance (x1, y1, x2, y2)
-    horizontal_distance = (x2 - x1).abs   #return absolute value
-    vertical_distance = (y2 - y1).abs
-    horizontal_distance + vertical_distance
-  end
-
-  def output_image
-    @image.each do |image| 
+    def output_image
+      @image.each do |image| 
       print image.join 
       print "\n"
     end
-  end  
+
 end
+     
+     
+  end
 
 image = Image.new([
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -65,6 +53,5 @@ image = Image.new([
 image.output_image 
 
 #transformed image
-puts 
-image.blur(2)
+image.transform(2)
 image.output_image
