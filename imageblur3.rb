@@ -1,4 +1,4 @@
-class Image
+s Image
   attr_accessor :image
   
   def initialize (image)
@@ -51,5 +51,6 @@ image = Image.new([
 image.output_image 
 
 #transformed image
+puts
 image.transform(2)
 image.output_image
