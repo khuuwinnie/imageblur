@@ -1,4 +1,4 @@
-s Image
+class Image
   attr_accessor :image
   
   def initialize (image)
