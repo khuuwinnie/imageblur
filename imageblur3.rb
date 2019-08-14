@@ -14,10 +14,10 @@ class Image
         @image.each_with_index do |row, row_id|
             row.each_with_index do |pixel, col_id|
               if b[row_id][col_id] == 1
-                @image[row_id + 1][col_id] = 1 unless [row_id] == @image.length - 1 #1 row down
-                @image[row_id - 1][col_id] = 1 unless [row_id] == 0 #1 row up
-                @image[row_id][col_id + 1] = 1 unless [col_id] == @image[row_id].length - 1 #1 column right
-                @image[row_id][col_id - 1] = 1 unless [col_id] == 0 #1 column left
+                @image[row_id + 1][col_id] = 1 unless row_id == @image.length - 1 #1 row down
+                @image[row_id - 1][col_id] = 1 unless row_id == 0 #1 row up
+                @image[row_id][col_id + 1] = 1 unless col_id == @image[row_id].length - 1 #1 column right
+                @image[row_id][col_id - 1] = 1 unless col_id == 0 #1 column left
               end 
             end
         end
